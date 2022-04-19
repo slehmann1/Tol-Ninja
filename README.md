@@ -5,7 +5,7 @@ Statistical tolerance stackup analysis software based on the Monte Carlo methodo
 ### Feature Overview
 Generate stackup results for both:
 #### 1 Dimensional Tolerance Chains
-![1D Chain Imagel](https://raw.githubusercontent.com/slehmann1/Tol-Ninja/main/SupportingInfo/GitHubImages/1D_Stack.png)
+![1D Chain Image](https://raw.githubusercontent.com/slehmann1/Tol-Ninja/main/SupportingInfo/GitHubImages/1D_Stack.png)
 #### Radial Tolerance Chains
 ![Radial Stack Chain](https://raw.githubusercontent.com/slehmann1/Tol-Ninja/main/SupportingInfo/GitHubImages/RadialStack.png)
 #### Power
