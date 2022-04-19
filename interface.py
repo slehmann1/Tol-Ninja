@@ -1,4 +1,5 @@
 import pickle
+import sys
 import tkinter as tk
 from tkinter import ttk, filedialog
 from tkinter.ttk import Frame, Button, Label, Entry, Combobox
@@ -70,6 +71,7 @@ def generate_interface():
     tab_control.add(report_frame, text='Report')
 
     root.mainloop()
+    sys.exit()
 
 
 def _generate_setup_frame(setup_frame):
@@ -693,7 +695,7 @@ def _generate_stackup_steps():
                       stackup_step[1].distribution.upper_lim, None]
 
         elif stackup_step[1].distribution.name == "Uniform":
-            combo_text = "Unifrom Distribution"
+            combo_text = "Uniform Distribution"
             text = StackRow.UNIFORM_TEXT
             values = [stackup_step[1].distribution.lower_lim, stackup_step[1].distribution.upper_lim, None, None, None]
         elif stackup_step[1].distribution.name == "Skewed Normal":

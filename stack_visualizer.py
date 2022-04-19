@@ -26,18 +26,11 @@ def arrow_diagram(axs, stackup_steps, min_target_length=None, max_target_length=
     if min_target_length is not None and max_target_length is not None:
         axs.axvspan(min_target_length, max_target_length, color='green', zorder=-1, label='Target', alpha=0.3)
 
-    num_of_steps = len(stackup_steps)
     abs_max = 0.0
     abs_min = 0.0
     all_abs_calculated = True
 
-    # Determine rough plot length to size the arrow heads
-    head_width = new_width = 0
-    for stackup_step in stackup_steps:
-        new_width += stackup_step.mid_length
-        if new_width > head_width:
-            head_width = new_width
-    head_width *= 0.05
+    head_width = len(stackup_steps)/25
 
     # draw arrows
     last_step_x = 0
@@ -166,6 +159,7 @@ def radial_diagram(axs, lengths, length_bounds=None):
     alpha = alpha if alpha > 0.1 else 0.1
 
     magnitudes = stack_manager.lengths_to_magnitudes(lengths)
+    np.random.shuffle(magnitudes)
     thetas = [np.arctan(lengths[1], lengths[0])]
 
     thetas = [theta * 360.0 / 2.0 / np.pi for theta in thetas]

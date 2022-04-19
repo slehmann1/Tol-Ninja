@@ -200,7 +200,8 @@ class ReportGenerator(object):
         footer_style.textColor = colors.darkgrey
 
         footer = Paragraph(
-            f'Report created using Tol Ninja: An open source tolerance stackup software (ADD GITHUB LINK) <br />'
+            f'Report created using Tol Ninja: <link href="' + 'https://github.com/slehmann1/Tol-Ninja' + '">' +
+            "<u>An open source tolerance stackup software</u>" + '</link><br />' 
 
             f'<link href="' + 'https://www.linkedin.com/in/SamuelLehmann/' + '">' +
             "<u>Network with the developer</u>" + '</link><br />' +
