@@ -43,7 +43,7 @@ def generate_interface():
     root = tk.Tk()
     root.title(TITLE)
     root.iconbitmap("icon.ico")
-    root.state('zoomed')
+    root.geometry('1800x1200')
 
     # Set the theme.
     # Credits to: https://github.com/rdbende/Sun-Valley-ttk-theme & https://github.com/quantumblacklabs/qbstyles
@@ -112,7 +112,7 @@ def _generate_setup_frame(setup_frame):
     oal_lsl_lref = LabelRestrictedEntryFrame(spec_limits_frame, "Overall Lower Specification Limit")
     oal_lsl_lref.grid(row=0, column=0)
     oal_usl_limit_lref = LabelRestrictedEntryFrame(spec_limits_frame, "Overall Upper Specification Limit")
-    oal_usl_limit_lref.grid(row=0, column=1)
+    oal_usl_limit_lref.grid(row=0, column=1, padx=20)
     spec_limits_frame.grid(row=0, column=2, sticky="e", padx=50)
 
     table_title_frame = Frame(setup_frame)
@@ -150,7 +150,7 @@ def _generate_setup_frame(setup_frame):
     bbox = setup_scroll_canvas.bbox(tk.ALL)  # Get bounding box of canvas
 
     # Define the scrollable region as entire canvas with only the desired width/height
-    setup_scroll_canvas.configure(scrollregion=bbox, height=1050)
+    setup_scroll_canvas.configure(scrollregion=bbox, height=850)
 
     init_entry = StackRow(table_frame, init_entry=True)
     init_entry.pack(fill="x", expand=1)
@@ -246,7 +246,7 @@ def _generate_report_frame(report_frame):
     middle_frame.grid_rowconfigure(1, weight=1)
 
     # Layout the arrow figure
-    arrow_figure = plt.figure(figsize=(15, 5))
+    arrow_figure = plt.figure(figsize=(10, 5))
     figure_canvas = FigureCanvasTkAgg(arrow_figure, master=middle_frame)
     figure_canvas.draw()
     figure_canvas.get_tk_widget().columnconfigure(0, weight=1)
@@ -332,12 +332,12 @@ def _generate_report_frame(report_frame):
     oal_figure = plt.figure(figsize=(6, 5))
     figure_canvas = FigureCanvasTkAgg(oal_figure, master=middle_frame)
     middle_frame.columnconfigure(0, weight=1)
-    middle_frame.columnconfigure(1, weight=3)
+    middle_frame.columnconfigure(1, weight=1)
     figure_canvas.draw()
     figure_canvas.get_tk_widget().grid(column=0, row=1, pady=10, ipady=10)
 
     # Layout the magnitude figure
-    magnitude_figure = plt.figure(figsize=(8, 5))
+    magnitude_figure = plt.figure(figsize=(7, 5))
     figure_canvas = FigureCanvasTkAgg(magnitude_figure, master=middle_frame)
     figure_canvas.draw()
     figure_canvas.get_tk_widget().grid(column=1, row=1, pady=10, ipady=10)
@@ -450,7 +450,7 @@ def _populate_report_frame(just_update_custom_limits=False):
         lengths = stackup_it[1].lengths
 
         # Create histogram
-        hist_figure = plt.figure(figsize=(15, 5))
+        hist_figure = plt.figure(figsize=(10, 5))
         figure_canvas = FigureCanvasTkAgg(hist_figure, master=middle_frame)
         figure_canvas.draw()
         figure_canvas.get_tk_widget().grid(column=0, row=row, pady=30, ipady=50)
@@ -495,7 +495,7 @@ def _populate_report_frame(just_update_custom_limits=False):
         # Need to resize figures, thus create a new oal figure
         oal_figure.clf()
         oal_figure.canvas.get_tk_widget().grid_remove()
-        oal_figure = plt.figure(figsize=(8, 5))
+        oal_figure = plt.figure(figsize=(6, 5))
         figure_canvas = FigureCanvasTkAgg(oal_figure, master=middle_frame)
         figure_canvas.get_tk_widget().columnconfigure(0, weight=1)
         figure_canvas.get_tk_widget().columnconfigure(1, weight=1)
@@ -505,7 +505,7 @@ def _populate_report_frame(just_update_custom_limits=False):
 
         magnitude_figure.clf()
         magnitude_figure.set_facecolor(_MPL_BACKGROUND)
-        magnitude_figure.canvas.get_tk_widget().grid(column=1, row=1, ipady=10, padx=80)
+        magnitude_figure.canvas.get_tk_widget().grid(column=1, row=1, ipady=10)
         stack_manager.create_magnitude_diagram(magnitude_figure.gca())
         magnitude_figure.canvas.draw()
         magnitude_figure.canvas.flush_events()
@@ -513,7 +513,7 @@ def _populate_report_frame(just_update_custom_limits=False):
     else:
         oal_figure.clf()
         oal_figure.canvas.get_tk_widget().grid_remove()
-        oal_figure = plt.figure(figsize=(25, 5))
+        oal_figure = plt.figure(figsize=(16, 5))
         figure_canvas = FigureCanvasTkAgg(oal_figure, master=middle_frame)
         figure_canvas.get_tk_widget().columnconfigure(0, weight=1)
         oal_figure.canvas.get_tk_widget().grid(column=0, row=1, columnspan=2, pady=10, ipady=10)
@@ -529,7 +529,7 @@ def _populate_report_frame(just_update_custom_limits=False):
 
     # Update the frame/scrollbar to reflect the frame
     bbox = report_scroll_canvas.bbox(tk.ALL)  # Get bounding box of canvas
-    report_scroll_canvas.configure(scrollregion=bbox, width=bbox[2], height=1050)
+    report_scroll_canvas.configure(scrollregion=bbox, width=bbox[2], height=1000)
 
 
 def add_report_images():
@@ -844,8 +844,8 @@ class LabelRestrictedEntryFrame(ttk.Frame):
         self.label_text = tk.StringVar()
         self.label_text.set(text)
 
-        self.label = Label(self, textvariable=self.label_text, width=30, justify="right", anchor="e")
-        self.spacer = Frame(self, width=10, height=30)
+        self.label = Label(self, textvariable=self.label_text, justify="right", anchor="e")
+        self.spacer = Frame(self, width=5, height=30)
         self.restricted_entry = RestrictedEntry(self, width=10, text_variable=text_variable)
         self.restricted_entry.insert(0, "TEXT")
 
@@ -893,9 +893,9 @@ class LabelRestrictedEntryFrame(ttk.Frame):
         Shows and places appropriately the elements of the LabelRestrictedEntryFrame
         :return:
         """
-        self.label.grid(row=0, column=0, sticky="nsew")
-        self.spacer.grid(row=0, column=1, sticky="nsew")
-        self.restricted_entry.grid(row=0, column=2, sticky="nsew")
+        self.label.grid(row=0, column=0, sticky ="nsew")
+        self.spacer.grid(row=0, column=1, sticky ="nsew")
+        self.restricted_entry.grid(row=0, column=2, sticky ="nsew")
 
 
 class StackRow(tk.Frame):

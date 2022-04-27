@@ -113,7 +113,7 @@ def histogram(axs, lengths, length_bounds=None, abs_bounds=None, title_prefix="H
 
         if len(out_range) > 0:
             out_range_percent = 100.0 * len(out_range) / len(lengths)
-            axs.axvspan(length_bounds[1], x1, color='red', zorder=1, alpha=0.1)
+            axs.axvspan(length_bounds[1], x1, color='red', zorder=1, alpha=0.1, label="Outside Specification Limits")
             axs.axvline(length_bounds[1], color='red', zorder=2, linestyle='--')
             axs.text(x=length_bounds[1] + LIMIT_TEXT_SPACING, y=((y1 - y0) * 0.85),
                      s=f'{out_range_percent:.001f}% Above\nMaximum',
@@ -123,7 +123,7 @@ def histogram(axs, lengths, length_bounds=None, abs_bounds=None, title_prefix="H
         out_range = [i for i in lengths if i < length_bounds[0]]
         if len(out_range) > 0:
             out_range_percent = 100.0 * len(out_range) / len(lengths)
-            axs.axvspan(x0, length_bounds[0], color='red', zorder=1, alpha=0.1, label="Outside Specification Limits", )
+            axs.axvspan(x0, length_bounds[0], color='red', zorder=1, alpha=0.1)
             axs.axvline(length_bounds[0], color='red', zorder=2, linestyle='--')
             axs.text(x=length_bounds[0] - LIMIT_TEXT_SPACING, y=((y1 - y0) * 0.85),
                      s=f'{out_range_percent:.001f}% Below\nMinimum',
@@ -139,7 +139,7 @@ def histogram(axs, lengths, length_bounds=None, abs_bounds=None, title_prefix="H
     # Only create a legend if there are valid entries
     a, _ = axs.get_legend_handles_labels()
     if a:
-        axs.legend(bbox_to_anchor=(0, 1), loc="upper left")
+        axs.legend(bbox_to_anchor=(1, 1), loc="upper right")
     return axs
 
 
@@ -190,5 +190,5 @@ def radial_diagram(axs, lengths, length_bounds=None):
     # Only create a legend if there are valid entries
     a, _ = axs.get_legend_handles_labels()
     if a:
-        axs.legend(bbox_to_anchor=(-0.4, 1.1), loc="upper left")
+        axs.legend(bbox_to_anchor=(-0.1, 1.1), loc="upper left")
     return axs

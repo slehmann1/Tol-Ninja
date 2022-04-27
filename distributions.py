@@ -141,6 +141,10 @@ class Uniform(Distribution):
 
 
 class SkewedNormal(Distribution):
+    """
+    A class for a skewed normal distribution
+    """
+
     def __init__(self, skew: float, mean: float, std: float, num_samples: int = DEFAULT_SAMPLES, lower_lim=None,
                  upper_lim=None):
         """
